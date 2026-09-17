@@ -12,7 +12,7 @@
 <body class="min-h-full bg-slate-50 text-slate-800">
     <x-navbar />
 
-    <main class="mx-auto max-w-3xl p-6">
+    <main class="mx-auto max-w-6xl p-6">
         {{ $slot }}
     </main>
 

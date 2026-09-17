@@ -11,22 +11,28 @@
 
     @include('partials.filtros')
 
+    <div class="mb-6">
+        {{ $eventos->links() }}
+    </div>
+
     @forelse ($eventos as $evento)
+        @if ($loop->first)
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        @endif
+
         <x-evento-card
             :titulo="$evento['titulo']"
-            :tipo="$evento['tipo']"
             :fecha="$evento['fecha']"
             :lugar="$evento['lugar']"
+            :descripcion="$evento['descripcion']"
+            :imagen="$evento['imagen']"
+            :precio="$evento['precio']"
+            :publicado="$evento['publicado']"
             :destacado="$evento['destacado']"
-            :cupos="$evento['cupos']"
-            class="mb-4"
+            :cupos="$evento['cupo']"
         >
 
-            <x-slot:badge>
-                <x-badge :categoria="$evento['categoria']" />
-            </x-slot:badge>
-
-            @if ($evento['cupos'] > 0)
+            @if ($evento['cupo'] > 0)
                 <x-slot:footer>
                     <a href="#" class="text-sm font-medium text-blue-600 hover:underline border bg-blue-100 px-4 py-2 rounded-xl">
                         Ver detalle
@@ -34,10 +40,13 @@
                 </x-slot:footer>
             @endif
         </x-evento-card>
+
+        @if ($loop->last)
+            </div>
+        @endif
     @empty
         <p class="text-slate-500">
             No existen eventos programados.
         </p>
     @endforelse
-    </main>
 </x-layout>
