@@ -7,4 +7,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/eventos', [EventoController::class, 'index'])->name('eventos.index');
+// Route::get('/eventos', [EventoController::class, 'index'])->name('eventos.index');
+
+Route::resource('eventos', EventoController::class);

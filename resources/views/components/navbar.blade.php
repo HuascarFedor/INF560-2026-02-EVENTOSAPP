@@ -19,7 +19,7 @@
                 hover:text-blue-600
                 focus:text-blue-700
             ">Inicio</a>
-            <a href="#"
+            <a href="{{ route('eventos.index') }}"
                 class="
                 transition-colors
                 hover:text-blue-600
