@@ -4,13 +4,13 @@
     class="mb-6 flex flex-wrap items-center gap-3"
 >
     <select
-        name=""
-        id=""
+        name="categoria"
         class="rounded-lg border-slate-300 text-sm"
     >
-        @foreach ( ['Todas', 'Tecnologia', 'Cultura', 'Deporte', 'Finanzas'] as $cat )
-            <option value="{{ $cat }}" @selected(request('categoria')) === $cat>
-                {{ $cat }}
+        <option value="">Todas</option>
+        @foreach ( $categorias as $categoria )
+            <option value="{{ $categoria->slug }}" @selected(request('categoria')=== $categoria->slug)>
+                {{ $categoria->nombre }}
             </option>
         @endforeach
     </select>
@@ -20,11 +20,21 @@
             type="checkbox"
             name="solo_destacados"
             value="1"
-            id=""
             @checked(request('solo_destacados'))
             class=""
         >
-        Solo destacados
+        Sólo destacados
+    </label>
+
+    <label for="" class="flex items-center gap-2 text-sm text-slate-600">
+        <input
+            type="checkbox"
+            name="solo_publicados"
+            value="1"
+            @checked(request('solo_publicados'))
+            class=""
+        >
+        Sólo publicados
     </label>
 
     <button

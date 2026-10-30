@@ -32,6 +32,30 @@
                 focus:text-blue-700
             ">Acerca
                 de</a>
+
+            @auth
+                <span class="text-slate-500">Hola, <span class="font-medium text-slate-700">{{ auth()->user()->name }}</span></span>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="cursor-pointer rounded-lg border border-slate-300 bg-white px-3 py-1.5 font-medium text-slate-700 transition-colors hover:border-rose-300 hover:bg-rose-50 hover:text-rose-600">Cerrar
+                        sesión</button>
+                </form>
+            @else
+                <a href="{{ route('login') }}"
+                    class="
+                 transition-colors
+                hover:text-blue-600
+                focus:text-blue-700
+            ">Iniciar sesión</a>
+
+                <a href="{{ route('registro') }}"
+                    class="
+                 transition-colors
+                hover:text-blue-600
+                focus:text-blue-700
+            ">Registro</a>
+            @endauth
         </div>
 
         <button class="sm:hidden text-slate-600">

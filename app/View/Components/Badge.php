@@ -12,12 +12,12 @@ class Badge extends Component
 
     public function __construct(public string $categoria)
     {
-        $this->color = match($categoria) {
-            'Tecnologia'    => 'bg-blue-100 text-blue-700',
-            'Cultura'       => 'bg-purple-100 text-purple-700',
-            'Deporte'       => 'bg-emerald-100 text-emerald-700',
-            'Finanzas'      => 'bg-pink-100 text-pink-700',
-            default         => 'bg-slate-100 text-slate-700',
+        $this->color = match ($categoria) {
+            'Investigación' => 'bg-blue-100 text-blue-700',
+            'Cultura' => 'bg-purple-100 text-purple-700',
+            'Deporte' => 'bg-emerald-100 text-emerald-700',
+            'Finanzas' => 'bg-pink-100 text-pink-700',
+            default => 'bg-slate-100 text-slate-700',
         };
     }
 

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Categoria;
 use App\Models\Evento;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -30,6 +31,7 @@ class EventoFactory extends Factory
             'precio' => fake()->randomElement([0, 15, 25, 40, 60]),
             'publicado' => fake()->boolean(80),
             'destacado' => fake()->boolean(20),
+            'categoria_id' => Categoria::inRandomOrder()->value('id'),
         ];
     }
 }

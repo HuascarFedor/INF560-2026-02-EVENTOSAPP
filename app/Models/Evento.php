@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Evento extends Model
 {
@@ -25,6 +27,7 @@ class Evento extends Model
         'imagen',
         'publicado',
         'destacado',
+        'categoria_id',
     ];
 
     // Conversion automática de tipos al leer/escribir
@@ -34,4 +37,21 @@ class Evento extends Model
         'publicado' => 'boolean',
         'destacado' => 'boolean',
     ];
+
+    // Relaciones
+    public function categoria(): BelongsTo
+    {
+        return $this->belongsTo(Categoria::class);
+    }
+
+    public function etiquetas(): BelongsToMany
+    {
+        return $this->belongsToMany(Etiqueta::class);
+    }
+
+    public function usuario(): BelongsTo
+    {
+        // el nombre del método (usuario) no coincide con la columna de la tabla
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
