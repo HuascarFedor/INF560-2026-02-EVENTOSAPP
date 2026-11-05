@@ -35,4 +35,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Evento::class);
     }
+
+    public function esAdmin(): bool
+    {
+        return $this->rol === 'admin';
+    }
 }

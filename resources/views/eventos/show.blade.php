@@ -215,22 +215,26 @@
                 </div>
 
                 @auth
-                {{-- Acciones --}}
-                <div class="flex gap-3">
-                    <a href="{{ route('eventos.edit', $evento) }}"
-                        class="flex-1 rounded-lg bg-orange-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-orange-600">
-                        Editar
-                    </a>
-                    <form action="{{ route('eventos.destroy', $evento) }}" method="post" class="flex-1"
-                        onsubmit="return confirm('Eliminar este evento?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            class="w-full rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700">
-                            Eliminar
-                        </button>
-                    </form>
-                </div>
+                    {{-- Acciones --}}
+                    <div class="flex gap-3">
+                        @can('update', $evento)
+                            <a href="{{ route('eventos.edit', $evento) }}"
+                                class="flex-1 rounded-lg bg-orange-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-orange-600">
+                                Editar
+                            </a>
+                        @endcan
+                        @can('delete', $evento)
+                            <form action="{{ route('eventos.destroy', $evento) }}" method="post" class="flex-1"
+                            onsubmit="return confirm('Eliminar este evento?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="w-full rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700">
+                                Eliminar
+                            </button>
+                        </form>
+                        @endcan
+                    </div>
                 @endauth
 
                 <p class="text-center text-xs text-slate-400">

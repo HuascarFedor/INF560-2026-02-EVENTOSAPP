@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             CategoriaSeeder::class,
             EtiquetaSeeder::class,
             EventolSeeder::class,
+            UsuariosPruebaSeeder::class
         ]);
     }
 }

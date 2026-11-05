@@ -7,12 +7,14 @@
         @include('partials.filtros')
 
         @auth
-        <div>
-            <a href="{{ route('eventos.create') }}"
-                class="text-sm bg-blue-600 rounded-lg px-4 py-2 text-white font-medium hover:bg-blue-700">
-                Crear Nuevo Evento
-            </a>
-        </div>
+            @can('create', App\Models\Evento::class)
+            <div>
+                <a href="{{ route('eventos.create') }}"
+                    class="text-sm bg-blue-600 rounded-lg px-4 py-2 text-white font-medium hover:bg-blue-700">
+                    Crear Nuevo Evento
+                </a>
+            </div>
+            @endcan
         @endauth
     </div>
 

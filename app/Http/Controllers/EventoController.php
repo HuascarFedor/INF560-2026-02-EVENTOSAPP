@@ -29,6 +29,8 @@ class EventoController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Evento::class);
+
         $categorias = Categoria::orderBy('nombre')->get();
         $etiquetas = Etiqueta::orderBy('nombre')->get();
 
@@ -38,6 +40,7 @@ class EventoController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $this->authorize('create', Evento::class);
 
         $datos = $request->validate([
             'titulo' => 'required|string|max:255',
@@ -77,6 +80,8 @@ class EventoController extends Controller
 
     public function edit(Evento $evento)
     {
+         $this->authorize('update', $evento);
+
         $categorias = Categoria::orderBy('nombre')->get();
         $etiquetas = Etiqueta::orderBy('nombre')->get();
 
@@ -86,6 +91,7 @@ class EventoController extends Controller
     public function update(Request $request, Evento $evento)
     {
         // dd($request);
+        $this->authorize('update', $evento);
 
         $datos = $request->validate([
             'titulo' => 'required|string|max:255',
@@ -114,6 +120,8 @@ class EventoController extends Controller
 
     public function destroy(Evento $evento)
     {
+        $this->authorize('delete', $evento);
+
         $evento->delete();
 
         return redirect()->route('eventos.index')
