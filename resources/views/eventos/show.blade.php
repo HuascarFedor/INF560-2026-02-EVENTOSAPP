@@ -31,8 +31,8 @@
     ])>
         {{-- Portada --}}
         <div class="relative h-64 w-full overflow-hidden bg-linear-to-br from-slate-100 to-slate-200 sm:h-80">
-            @if ($evento->imagen)
-                <img src="{{ $evento->imagen }}" alt="{{ $evento->titulo }}" class="h-full w-full object-cover">
+            @if ($evento->imagen_url)
+                <img src="{{ $evento->imagen_url }}" alt="{{ $evento->titulo }}" class="h-full w-full object-cover">
             @else
                 <div class="flex h-full w-full items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

@@ -7,7 +7,7 @@
         Volver a la cartelera
     </a>
 
-    <form action="{{ route('eventos.store') }}" method="post"
+    <form action="{{ route('eventos.store') }}" method="post" enctype="multipart/form-data"
         class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         @csrf
 

@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use App\Models\Etiqueta;
 use App\Models\Evento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class EventoController extends Controller
@@ -54,9 +55,15 @@ class EventoController extends Controller
             'categoria_id' => ['required', 'exists:categorias,id'],
             'etiquetas' => ['nullable', 'array'],
             'etiquetas.*' => ['integer', 'exists:etiquetas,id'],
+            'imagen' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
-        $datos['slug'] = Str::slug($datos['titulo']);
+        unset($datos['imagen']);
+        if($request->hasFile('imagen')){
+            $datos['imagen'] = $request->file('imagen')->store('eventos', 'public');
+        }
+
+        $datos['slug'] = Str::slug($datos['titulo']).'-'.fake()->unique()->numberBetween(1, 99999);
         $datos['publicado'] = $request->has('publicado') ? 1 : 0;
         $datos['destacado'] = $request->has('destacado') ? 1 : 0;
 
@@ -105,9 +112,23 @@ class EventoController extends Controller
             'categoria_id' => ['required', 'exists:categorias,id'],
             'etiquetas' => ['nullable', 'array'],
             'etiquetas.*' => ['integer', 'exists:etiquetas,id'],
+            'imagen' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
-        $datos['slug'] = Str::slug($datos['titulo']);
+        unset($datos['imagen']);
+        $imagenAnterior = $evento->imagen;
+
+        if($request->hasFile('imagen')) {
+            $datos['imagen'] = $request->file('imagen')->store('eventos', 'public');
+        } elseif($request->boolean('quitar_imagen')) {
+            $datos['imagen'] = null;
+        }
+
+        if($request->hasFile('imagen')){
+            $datos['imagen'] = $request->file('imagen')->store('eventos', 'public');
+        }
+
+        $datos['slug'] = Str::slug($datos['titulo']).'-'.fake()->unique()->numberBetween(1, 99999);
         $datos['publicado'] = $request->has('publicado') ? 1 : 0;
         $datos['destacado'] = $request->has('destacado') ? 1 : 0;
 
@@ -122,7 +143,11 @@ class EventoController extends Controller
     {
         $this->authorize('delete', $evento);
 
+        $imagen = $evento->imagen;
         $evento->delete();
+        if($imagen) {
+            Storage::disk('public')->delete($imagen);
+        }
 
         return redirect()->route('eventos.index')
             ->with('exito', 'Evento eliminado correctamente.');

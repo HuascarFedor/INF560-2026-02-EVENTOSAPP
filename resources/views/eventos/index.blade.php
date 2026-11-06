@@ -28,7 +28,7 @@
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         @endif
 
-        <x-evento-card :titulo="$evento['titulo']" :fecha="$evento['fecha']" :lugar="$evento['lugar']" :descripcion="$evento['descripcion']" :imagen="$evento['imagen']"
+        <x-evento-card :titulo="$evento['titulo']" :fecha="$evento['fecha']" :lugar="$evento['lugar']" :descripcion="$evento['descripcion']" :imagen="$evento->imagen_url"
             :precio="$evento['precio']" :publicado="$evento['publicado']" :destacado="$evento['destacado']" :cupos="$evento['cupo']" :categoria="$evento->categoria?->nombre" :etiquetas="$evento->etiquetas" :creador="$evento->usuario->name ?? 'Desconocido'">
 
 

@@ -33,6 +33,44 @@
         </div>
 
         <div>
+            <label for="imagen" class="block text-sm font-medium text-slate-700">Imagen de portada</label>
+
+            {{-- Solo en edicion: muestra la imagen actual y permite quitarla --}}
+            @if ($evento)
+               @if($evento?->imagen_url)
+                <div>
+                    <img src="{{ $evento->imagen_url }}" alt="Imagen actual">
+                    <label>
+                        <input type="checkbox" name="quitar_imagen"
+                        value="1" @checked(old('quitar_imagen'))>
+                        Quitar la imagen actual
+                    </label>
+                </div>
+                @else
+                    <p class="mt-1.5 text-xs text-slate-400">
+                    Actualmente el evento no tiene una imagen de portada.
+                    </p>
+                @endif
+            @endif
+
+            <input type="file" name="imagen" id="imagen" accept="image/jpeg,image/png,image/webp"
+            class="mt-2 block w-full cursor-pointer text-sm text-slate-600
+            file:mr-4 file:rounded-lg file:border-0 file:bg-blue-50 file:px-4 file:py-2
+            file:text-sm file:font-medium file:text-blue-700 hover:file:bg-blue-100">
+            <p class="mt-1.5 text-xs text-slate-400">
+                JPG, PNG o WEBP, máximo de 2 MB.
+            </p>
+
+            {{-- Vista previa de la imagen recien elegida --}}
+            <img id="vista-previa" src="" alt="Vista previa"
+            class="mt-3 hidden h-48 w-full rounde-lg object-contein ring-1 ring-slate-200">
+
+            @error('imagen')
+                 <p class="mt-1.5 text-sm text-rose-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
             <label for="descripcion" class="block text-sm font-medium text-slate-700">Descripción</label>
             <textarea id="descripcion" name="descripcion" rows="8" placeholder="Describe de qué trata el evento..."
                 class="{{ $campoBase }} pl-3! {{ $errors->has('descripcion') ? $campoError : $campoNormal }}">{{ old('descripcion', $evento?->descripcion) }}</textarea>
@@ -201,3 +239,18 @@
         </div>
     </aside>
 </div>
+
+<script>
+    document.getElementById('imagen').addEventListener('change', (e) => {
+        const archivo = e.target.files[0];
+        const vista = document.getElementById('vista-previa');
+
+        if(!archivo) {
+            vista.classList.add('hidden');
+            return;
+        }
+
+        vista.src = URL.createObjectURL(archivo);
+        vista.classList.remove('hidden');
+    });
+</script>

@@ -7,7 +7,7 @@
         Volver al detalle
     </a>
 
-    <form action="{{ route('eventos.update', $evento) }}" method="post"
+    <form action="{{ route('eventos.update', $evento) }}" method="post" enctype="multipart/form-data"
         class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         @csrf
         @method('PUT')
